@@ -1,54 +1,41 @@
 #!/bin/bash
-#Autoscript Created By Suhendi EMAIL (admin@hzro-store.com WA (6285156022091)
+echo -e "\e[40;38;5;226m " 
+echo " WELCOME TO AUTOSCRIPT VpsProject "
+echo "################################################################################" 
+echo "#                                                                              #" 
+echo "#      SSSSSSSSSSSSSSSSS  sssssssssssssssss  HHHHHHHHH        HHHHHHHHH        #" 
+echo "#      SSSSSSSSSSSSSSSSS  SSSSSSSSSSSSSSSSS  HHHHHHHHH        HHHHHHHHH        #" 
+echo "#      SSSSSS             SSSSSS             HHHHHHHHH        HHHHHHHHH        #" 
+echo "#      SSSSSS             SSSSSS             HHHHHHHHH        HHHHHHHHH        #" 
+echo "#      SSSSSSSSSSSSSSSSS  SSSSSSSSSSSSSSSSS  HHHHHHHHHHHHHHHHHHHHHHHHHH        #" 
+echo "#      SSSSSSSSSSSSSSSSS  SSSSSSSSSSSSSSSSS  HHHHHHHHHHHHHHHHHHHHHHHHHH        #" 
+echo "#                 SSSSSS             SSSSSS  HHHHHHHHH        HHHHHHHHH        #" 
+echo "#                 SSSSSS             SSSSSS  HHHHHHHHH        HHHHHHHHH        #"
+echo "#      SSSSSSSSSSSSSSSSS  SSSSSSSSSSSSSSSSS  HHHHHHHHH        HHHHHHHHH        #" 
+echo "#      SSSSSSSSSSSSSSSSS  SSSSSSSSSSSSSSSSS  HHHHHHHHH        HHHHHHHHH        #" 
+echo "#------------------------------------------------------------------------------#" 
+echo "#          SELAMAT DATANG DI SCRIPT AUTO SETUP VPS BY VPSPROJECT.              #" 
+echo "#                       SCRIPT VERSION V2.0 FOR DEBIAN 7-8-9                   #"
+echo "#                               SEMOGA BERMANFAAT                              #" 
+echo "#------------------------------------------------------------------------------#" 
+echo "################################################################################"
+echo "========================================"
+echo "CLICK 'I' SETUP VPS Non-Local"
+echo "CLICK 'L' SETUP VPS Local" 
+echo "========================================"
+read -p "Location : " -e loc
+# root
+cd
 clear
-
-
-if [[ $USER != "root" ]]; then
-	echo "Maaf, Anda harus menjalankan ini sebagai root"
-	exit
-fi
-
-# initialisasi var
-export DEBIAN_FRONTEND=noninteractive
-OS=`uname -m`;
-#MYIP=$(wget -qO- ipv4.icanhazip.com);
-
-# get the VPS IP
-#ip=`ifconfig venet0:0 | grep 'inet addr' | awk {'print $2'} | sed s/.*://`
-
-#MYIP=`ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0' | head -n1`;
-MYIP=$(ifconfig | grep 'inet addr:' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | cut -d: -f2 | awk '{ print $1}' | head -1)
-if [ "$MYIP" = "" ]; then
-	MYIP=$(wget -qO- ipv4.icanhazip.com)
-fi
-MYIP2="s/xxxxxxxxx/$MYIP/g";
-ether=`ifconfig | cut -c 1-8 | sort | uniq -u | grep venet0 | grep -v venet0:`
-if [[ $ether = "" ]]; then
-        ether=eth0
-fi
-
-
-#vps="zvur";
-vps="aneka";
-
-#if [[ $vps = "zvur" ]]; then
-	#source="http://"
-#else
-	source="https://raw.githubusercontent.com/acillsadank/deb9/master"
-#fi
-
-myip=`ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0' | head -n1`;
-myint=`ifconfig | grep -B1 "inet addr:$myip" | head -n1 | awk '{print $1}'`;
-if [ $USER != 'root' ]; then
-echo "Sorry, for run the script please using root user"
-exit 1
-fi
-if [[ "$EUID" -ne 0 ]]; then
-echo "Sorry, you need to run this as root"
-exit 2
-fi
-
-# ENABLE IPV4 AND IPV6
+echo "MULA MEMASANG AUTOSCRIPT"
+clear
+echo "SET TIMEZONE KUALA LUMPUT GMT +8"
+ln -fs /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime;
+clear
+echo "
+ENABLE IPV4 AND IPV6
+COMPLETE 1%
+"
 echo ipv4 >> /etc/modules
 echo ipv6 >> /etc/modules
 sysctl -w net.ipv4.ip_forward=1
@@ -56,17 +43,37 @@ sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
 sed -i 's/#net.ipv6.conf.all.forwarding=1/net.ipv6.conf.all.forwarding=1/g' /etc/sysctl.conf
 sysctl -p
 clear
-
-# wget and curl
-apt-get update;apt-get -y install wget curl;
-
-# set time GMT +7
-ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
-
-# set locale
-sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
-service ssh restart
-
+echo "
+REMOVE SPAM PACKAGE
+COMPLETE 10%
+"
+# detail
+country=ID
+state=Terengganu
+locality=.
+organization=.
+organizationalunit=.
+commonname=Hake
+email=.
+apt-get -y --purge remove samba*;
+apt-get -y --purge remove apache2*;
+apt-get -y --purge remove sendmail*;
+apt-get -y --purge remove postfix*;
+apt-get -y --purge remove bind*;
+clear
+echo "
+UPDATE AND UPGRADE PROCESS
+PLEASE WAIT TAKE TIME 1-5 MINUTE
+"
+sh -c 'echo "deb http://download.webmin.com/download/repository sarge contrib" > /etc/apt/sources.list.d/webmin.list'
+wget -qO - http://www.webmin.com/jcameron-key.asc | apt-key add -
+apt-get update;
+apt-get -y autoremove;
+apt-get -y install wget curl;
+echo "
+INSTALLER PROCESS PLEASE WAIT
+TAKE TIME 5-10 MINUTE
+"
 wget -O - https://swupdate.openvpn.net/repos/repo-public.gpg|apt-key add -
 sleep 2
 echo "deb http://build.openvpn.net/debian/openvpn/release/2.4 stretch main" > /etc/apt/sources.list.d/openvpn-aptrepo.list
@@ -75,74 +82,47 @@ apt update
 apt upgrade -y
 apt install openvpn nginx php7.0-fpm stunnel4 squid3 dropbear easy-rsa vnstat ufw build-essential fail2ban zip -y
 
-# remove unused
-apt-get -y --purge remove samba*;
-apt-get -y --purge remove apache2*;
-apt-get -y --purge remove sendmail*;
-apt-get -y --purge remove bind9*;
-apt-get -y --purge remove dropbear*;
+# initializing var
+MYIP=`ifconfig eth0 | awk 'NR==2 {print $2}'`
+MYIP2="s/xxxxxxxxx/$MYIP/g";
+cd /root
 
-# update
-apt-get update; apt-get -y upgrade;
+# text gambar
+apt-get install boxes
 
-# install webserver
-apt-get -y install nginx php-fpm php-mcrypt php-cli libexpat1-dev libxml-parser-perl
+# color text
+cd
+rm -rf /root/.bashrc
+wget -O /root/.bashrc "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/.bashrc"
 
-# install essential package
-echo "mrtg mrtg/conf_mods boolean true" | debconf-set-selections
-apt-get -y install bmon iftop htop nmap axel nano iptables traceroute sysv-rc-conf dnsutils bc nethogs openvpn vnstat less screen psmisc apt-file whois ptunnel ngrep mtr git zsh mrtg snmp snmpd snmp-mibs-downloader unzip unrar rsyslog debsums rkhunter
-apt-get -y install build-essential
-
+# install lolcat
+sudo apt-get -y install ruby
+sudo gem install lolcat
 # script
-wget -O /etc/pam.d/common-password "$source/common-password"
+wget -O /etc/pam.d/common-password "https://raw.githubusercontent.com/sslmode/sslmode/master/common-password"
 chmod +x /etc/pam.d/common-password
-
-# disable exim
-service exim4 stop
-sysv-rc-conf exim4 off
-
-# update apt-file
-apt-file update
-
-# setting vnstat
-vnstat -u -i eth0
-service vnstat restart
-
-# disable ipv6
-echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
-sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.local
-
-# Instal (D)DoS Deflate
-if [ -d '/usr/local/ddos' ]; then
-	echo; echo; echo "Please un-install the previous version first"
-	exit 0
-else
-	mkdir /usr/local/ddos
+service exim4 stop;sysv-rc-conf exim4 off;
+# webmin
+apt-get -y install webmin
+sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
+# dropbear
+# Install Dropbear
+apt-get install zlib1g-dev dpkg-dev dh-make -y
+wget https://raw.githubusercontent.com/GegeEmbrie/autosshvpn/master/file/dropbear-2014.63.tar.bz2
+tar jxvf dropbear-2014.63.tar.bz2
+cd dropbear-2014.63
+dpkg-buildpackage
+cd ..
+OS=`uname -m`;
+if [ $OS = 'i686' ]; then
+	dpkg -i dropbear_2014.63-0.1_i386.deb
+elif [ $OS = 'x86_64' ]; then
+	dpkg -i dropbear_2014.63-0.1_amd64.deb
 fi
-clear
-echo; echo 'Installing DOS-Deflate 0.6'; echo
-echo; echo -n 'Downloading source files...'
-wget -q -O /usr/local/ddos/ddos.conf $sources/ddos.conf
-echo -n '.'
-wget -q -O /usr/local/ddos/LICENSE $source/LICENSE
-echo -n '.'
-wget -q -O /usr/local/ddos/ignore.ip.list $source/ignore.ip.list
-echo -n '.'
-wget -q -O /usr/local/ddos/ddos.sh $source/ddos/ddos.sh
-chmod 0755 /usr/local/ddos/ddos.sh
-cp -s /usr/local/ddos/ddos.sh /usr/local/sbin/ddos
-echo '...done'
-echo; echo -n 'Creating cron to run script every minute.....(Default setting)'
-/usr/local/ddos/ddos.sh --cron > /dev/null 2>&1
-echo '.....done'
-echo; echo 'Installation has completed.'
-echo 'Config file is at /usr/local/ddos/ddos.conf'
-echo 'Please send in your comments and/or suggestions to zaf@vsnl.com'
-
-# install fail2ban
-apt-get update;apt-get -y install fail2ban;service fail2ban restart;
-
-
+apt-get -y install dropbear
+wget -O /etc/default/dropbear "https://raw.githubusercontent.com/sslmode/sslmode/master/dropbear"
+echo "/bin/false" >> /etc/shells
+echo "/usr/sbin/nologin" >> /etc/shells
 
 # install squid3
 cat > /etc/squid/squid.conf <<-END
@@ -177,18 +157,13 @@ visible_hostname Gugun
 END
 sed -i $MYIP2 /etc/squid/squid.conf;
 
-# Web Server
-cd
-rm /etc/nginx/sites-enabled/default
-rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf "$source/nginx.conf"
-mkdir -p /home/vps/public_html
-echo "<?php phpinfo(); ?>" > /home/vps/public_html/info.php
-wget -O /home/vps/public_html/index.html $source/index.html
-wget -O /etc/nginx/conf.d/vps.conf "$source/vps.conf"
-sed -i 's/listen = \/var\/run\/php7.0-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php/7.0/fpm/pool.d/www.conf
-service php7.0-fpm restart
-service nginx restart
+# setting banner
+rm /etc/issue.net
+wget -O /etc/issue.net "https://raw.githubusercontent.com/Gugun09/premscript/master/issue.net"
+sed -i 's@#Banner@Banner@g' /etc/ssh/sshd_config
+sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/issue.net"@g' /etc/default/dropbear
+service ssh restart
+service dropbear restart
 
 # openvpn
 apt-get -y install openvpn
@@ -200,6 +175,19 @@ tar xf openvpn.tar;rm openvpn.tar
 #./openvpn-install.sh
 wget -O /etc/rc.local "https://raw.githubusercontent.com/guardeumvpn/Qwer77/master/rc.local"
 chmod +x /etc/rc.local
+
+# Web Server
+cd
+rm /etc/nginx/sites-enabled/default
+rm /etc/nginx/sites-available/default
+wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/acillsadank/deb9/master/nginx.conf"
+mkdir -p /home/vps/public_html
+echo "<?php phpinfo(); ?>" > /home/vps/public_html/info.php
+wget -O /home/vps/public_html/index.html "https://raw.githubusercontent.com/acillsadank/deb9/master/index.html"
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/acillsadank/deb9/master/vps.conf"
+sed -i 's/listen = \/var\/run\/php7.0-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php/7.0/fpm/pool.d/www.conf
+service php7.0-fpm restart
+service nginx restart
 
 # etc
 #cp /root/client.ovpn /home/vps/public_html
@@ -239,44 +227,80 @@ cd badvpn-build
 cmake ~/badvpn-1.999.127 -DBUILD_NOTHING_BY_DEFAULT=1 -DBUILD_UDPGW=1
 make install
 screen badvpn-udpgw --listen-addr 127.0.0.1:7300 > /dev/null &
-cdcd
-
-# ssh
-sed -i '$ i\Banner /etc/banner' /etc/ssh/sshd_config
-sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
-
-# dropbear
-apt-get -y install dropbear
-sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=143/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 456"/g' /etc/default/dropbear
-echo "/bin/false" >> /etc/shells
-echo "/usr/sbin/nologin" >> /etc/shells
-sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/banner"@g' /etc/default/dropbear
-service ssh restart
-service dropbear restart
-
-# BAANER
-wget -O /etc/banner $source/banner
-
-# install stunnel4
-wget $source/ssl.sh
-bash ssl.sh 
-rm -f ssl.sh
-
-# install webmin
 cd
-wget "http://prdownloads.sourceforge.net/webadmin/webmin_1.900_all.deb"
-dpkg --install webmin_1.900_all.deb;
-apt-get -y -f install;
-rm /root/webmin_1.900_all.deb
-sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
-service webmin re
-start
 
-# tubb
+
+# Instal (D)DoS Deflate
+if [ -d '/usr/local/ddos' ]; then
+	echo; echo; echo "Please un-install the previous version first"
+	exit 0
+else
+	mkdir /usr/local/ddos
+fi
+clear
+echo; echo 'Installing DOS-Deflate 0.6'; echo
+echo; echo -n 'Downloading source files...'
+wget -q -O /usr/local/ddos/ddos.conf $sources/ddos.conf
+echo -n '.'
+wget -q -O /usr/local/ddos/LICENSE $source/LICENSE
+echo -n '.'
+wget -q -O /usr/local/ddos/ignore.ip.list $source/ignore.ip.list
+echo -n '.'
+wget -q -O /usr/local/ddos/ddos.sh $source/ddos/ddos.sh
+chmod 0755 /usr/local/ddos/ddos.sh
+cp -s /usr/local/ddos/ddos.sh /usr/local/sbin/ddos
+echo '...done'
+echo; echo -n 'Creating cron to run script every minute.....(Default setting)'
+/usr/local/ddos/ddos.sh --cron > /dev/null 2>&1
+echo '.....done'
+echo; echo 'Installation has completed.'
+echo 'Config file is at /usr/local/ddos/ddos.conf'
+echo 'Please send in your comments and/or suggestions to zaf@vsnl.com'
+
+# install fail2ban
+apt-get update;apt-get -y install fail2ban;service fail2ban restart;
+
+# install stunnel
+apt-get -y install stunnel4
+cat > /etc/stunnel/stunnel.conf <<-END
+cert = /etc/stunnel/stunnel.pem
+pid = /stunnel.pid
+
+client = no	
+socket = a:SO_REUSEADDR=1
+socket = l:TCP_NODELAY=1
+socket = r:TCP_NODELAY=1
+
+[dropbear]
+accept = 442
+connect = 127.0.0.1:443
+connect = 127.0.0.1:109
+connect = 127.0.0.1:110
+
+[ssh]
+accept = 21
+connect = 127.0.0.1:143
+
+;[squid]
+;accept = 8000
+;connect = 127.0.0.1:3128
+;connect = 127.0.0.1:80
+;connect = 127.0.0.1:8080
+END
+
+#membuat sertifikat
+openssl genrsa -out key.pem 2048
+openssl req -new -x509 -key key.pem -out cert.pem -days 1095 \
+-subj "/C=$country/ST=$state/L=$locality/O=$organization/OU=$organizationalunit/CN=$commonname/emailAddress=$email"
+cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
+
+#konfigurasi stunnel
+sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
+/etc/init.d/stunnel4 restart
+
+#Setting UFW
 ufw allow ssh
-ufw allow 53/tcp
+ufw allow 1147/tcp
 sed -i 's|DEFAULT_INPUT_POLICY="DROP"|DEFAULT_INPUT_POLICY="ACCEPT"|' /etc/default/ufw
 sed -i 's|DEFAULT_FORWARD_POLICY="DROP"|DEFAULT_FORWARD_POLICY="ACCEPT"|' /etc/default/ufw
 
@@ -349,54 +373,64 @@ sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.local
 
 # download script
 cd
-wget -O /usr/bin/benchmark $source/benchmark.sh
-wget -O /usr/bin/speedtest $source/speedtest_cli.py
-wget -O /usr/bin/ps-mem $source/ps_mem.py
-wget -O /usr/bin/edit-squid $source/edit-squid.sh
-wget -O /usr/bin/edit-dropbear $source/edit-dropbear.sh
-wget -O /usr/bin/edit-port $source/edit-port.sh
-wget -O /usr/bin/menu $source/menu.sh
-wget -O /usr/bin/user-active-list $source/user-active-list.sh
-wget -O /usr/bin/user-add $source/user-add.sh
-wget -O /usr/bin/user-del $source/user-del.sh
-wget -O /usr/bin/delete-user-expire $source/delete-user-expire.sh
-wget -O /usr/bin/user-ban $source/user-ban.sh
-wget -O /usr/bin/user-unban $source/user-unban.sh
-wget -O /usr/bin/user-expire-list $source/user-expire-list.sh
-wget -O /usr/bin/user-trial $source/user-trial.sh
-wget -O /usr/bin/user-lock $source/user-lock.sh
-wget -O /usr/bin/user-unlock $source/user-unlock.sh
-wget -O /usr/bin/userlimit.sh $source/userlimit.sh
-wget -O /usr/bin/userlimitssh.sh $source/userlimitssh.sh
-wget -O /usr/bin/user-list $source/user-list.sh
-wget -O /usr/bin/user-login $source/user-login.sh
-wget -O /usr/bin/user-pass $source/user-pass.sh
-wget -O /usr/bin/user-renew $source/user-renew.sh
-wget -O /usr/bin/clearcache.sh $source/clearcache.sh
-wget -O /usr/bin/log-ban $source/log-ban.sh
-wget -O /usr/bin/health $source/health.sh
-wget -O /usr/bin/cache-ram $source/cache-ram.sh
-wget -O /usr/bin/edit-banner $source/edit-banner.sh
+wget -O /usr/bin/motd "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/motd"
+wget -O /usr/bin/benchmark "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/benchmark.sh"
+wget -O /usr/bin/speedtest "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/speedtest_cli.py"
+wget -O /usr/bin/ps-mem "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/ps_mem.py"
+wget -O /usr/bin/dropmon "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/dropmon.sh"
+wget -O /usr/bin/menu "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/menu.sh"
+wget -O /usr/bin/user-active-list "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/user-active-list.sh"
+wget -O /usr/bin/user-add "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/user-add.sh"
+wget -O /usr/bin/user-add-pptp "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/user-add-pptp.sh"
+wget -O /usr/bin/user-del "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/user-del.sh"
+wget -O /usr/bin/disable-user-expire "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/disable-user-expire.sh"
+wget -O /usr/bin/delete-user-expire "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/delete-user-expire.sh"
+wget -O /usr/bin/banned-user "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/banned-user.sh"
+wget -O /usr/bin/unbanned-user "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/unbanned-user.sh"
+wget -O /usr/bin/user-expire-list "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/user-expire-list.sh"
+wget -O /usr/bin/user-gen "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/user-gen.sh"
+wget -O /usr/bin/userlimit.sh "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/userlimit.sh"
+wget -O /usr/bin/userlimitssh.sh "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/userlimitssh.sh"
+wget -O /usr/bin/user-list "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/user-list.sh"
+wget -O /usr/bin/user-login "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/user-login.sh"
+wget -O /usr/bin/user-pass "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/user-pass.sh"
+wget -O /usr/bin/user-renew "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/user-renew.sh"
+wget -O /usr/bin/clearcache.sh "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/clearcache.sh"
+wget -O /usr/bin/bannermenu "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/bannermenu"
 cd
-#permission
+
+#rm -rf /etc/cron.weekly/
+#rm -rf /etc/cron.hourly/
+#rm -rf /etc/cron.monthly/
+rm -rf /etc/cron.daily/
+wget -O /root/passwd "https://raw.githubusercontent.com/sslmode/sslmode/master/tools/passwd.sh"
+chmod +x /root/passwd
+echo "01 23 * * * root /root/passwd" > /etc/cron.d/passwd
+
+echo "*/30 * * * * root service dropbear restart" > /etc/cron.d/dropbear
+echo "00 23 * * * root /usr/bin/disable-user-expire" > /etc/cron.d/disable-user-expire
+echo "0 */12 * * * root /sbin/reboot" > /etc/cron.d/reboot
+#echo "00 01 * * * root echo 3 > /proc/sys/vm/drop_caches && swapoff -a && swapon -a" > /etc/cron.d/clearcacheram3swap
+echo "*/30 * * * * root /usr/bin/clearcache.sh" > /etc/cron.d/clearcache1
+
 cd
+chmod +x /usr/bin/motd
 chmod +x /usr/bin/benchmark
 chmod +x /usr/bin/speedtest
 chmod +x /usr/bin/ps-mem
-chmod +x /usr/bin/edit-squid
-chmod +x /usr/bin/edit-dropbear
-chmod +x /usr/bin/edit-port
+#chmod +x /usr/bin/autokill
+chmod +x /usr/bin/dropmon
 chmod +x /usr/bin/menu
 chmod +x /usr/bin/user-active-list
 chmod +x /usr/bin/user-add
+chmod +x /usr/bin/user-add-pptp
 chmod +x /usr/bin/user-del
+chmod +x /usr/bin/disable-user-expire
 chmod +x /usr/bin/delete-user-expire
-chmod +x /usr/bin/user-ban
-chmod +x /usr/bin/user-unban
+chmod +x /usr/bin/banned-user
+chmod +x /usr/bin/unbanned-user
 chmod +x /usr/bin/user-expire-list
-chmod +x /usr/bin/user-trial
-chmod +x /usr/bin/user-lock
-chmod +x /usr/bin/user-unlock
+chmod +x /usr/bin/user-gen
 chmod +x /usr/bin/userlimit.sh
 chmod +x /usr/bin/userlimitssh.sh
 chmod +x /usr/bin/user-list
@@ -404,111 +438,77 @@ chmod +x /usr/bin/user-login
 chmod +x /usr/bin/user-pass
 chmod +x /usr/bin/user-renew
 chmod +x /usr/bin/clearcache.sh
-chmod +x /usr/bin/log-ban
-chmod +x /usr/bin/health
-chmod +x /usr/bin/cache-ram
-chmod +x /usr/bin/edit-banner
+chmod +x /usr/bin/bannermenu
 cd
 
-#rm -rf /etc/cron.weekly/
-#rm -rf /etc/cron.hourly/
-#rm -rf /etc/cron.monthly/
-rm -rf /etc/cron.daily/
+# blockir torrent
+iptables -A OUTPUT -p tcp --dport 6881:6889 -j DROP
+iptables -A OUTPUT -p udp --dport 1024:65534 -j DROP
+iptables -A FORWARD -m string --string "get_peers" --algo bm -j DROP
+iptables -A FORWARD -m string --string "announce_peer" --algo bm -j DROP
+iptables -A FORWARD -m string --string "find_node" --algo bm -j DROP
+iptables -A FORWARD -m string --algo bm --string "BitTorrent" -j DROP
+iptables -A FORWARD -m string --algo bm --string "BitTorrent protocol" -j DROP
+iptables -A FORWARD -m string --algo bm --string "peer_id=" -j DROP
+iptables -A FORWARD -m string --algo bm --string ".torrent" -j DROP
+iptables -A FORWARD -m string --algo bm --string "announce.php?passkey=" -j DROP
+iptables -A FORWARD -m string --algo bm --string "torrent" -j DROP
+iptables -A FORWARD -m string --algo bm --string "announce" -j DROP
+iptables -A FORWARD -m string --algo bm --string "info_hash" -j DROP
 
-# autoreboot
-echo "*/10 * * * * root service dropbear restart" > /etc/cron.d/dropbear
-echo "*/10 * * * * root service squid restart" > /etc/cron.d/squid
-echo "*/10 * * * * root service ssh restart" > /etc/cron.d/ssh
-echo "*/10 * * * * root service webmin restart" > /etc/cron.d/webmin
-#echo "0 */48 * * * root /sbin/reboot" > /etc/cron.d/reboot
-echo "00 23 * * * root /usr/bin/delete-user-expire" > /etc/cron.d/delete-user-expire
-echo "0 */1 * * * root echo 3 > /proc/sys/vm/drop_caches" > /etc/cron.d/clearcaches
-#echo "0 */1 * * * root /usr/bin/clearcache.sh" > /etc/cron.d/clearcache1
-wget -O /root/passwd "$source/passwd.sh"
-chmod +x /root/passwd
-echo "01 23 * * * root /root/passwd" > /etc/cron.d/passwd
-cd
-
-dd if=/dev/zero of=/swapfile bs=2048 count=2048k
-# buat swap
-mkswap /swapfile
-# jalan swapfile
-swapon /swapfile
-#auto star saat reboot
-wget $source/fstab
-mv ./fstab /etc/fstab
-chmod 644 /etc/fstab
-sysctl vm.swappiness=10
-#permission swapfile
-chown root:root /swapfile 
-chmod 0600 /swapfile
-cd
-
-# text gambar
-apt-get install boxes
-
-# install teks berwarna
-sudo apt-get -y install ruby
-sudo gem install lolcat
-
-# install neofetch
-echo "deb http://dl.bintray.com/dawidd6/neofetch jessie main" | tee -a /etc/apt/sources.list
-curl "https://bintray.com/user/downloadSubjectPublicKey?username=bintray"| apt-key add -
-apt-get update
-apt-get install neofetch
-
-echo "deb http://dl.bintray.com/dawidd6/neofetch jessie main" | tee -a /etc/apt/sources.list
-curl "https://bintray.com/user/downloadSubjectPublicKey?username=bintray"| apt-key add -
-apt-get update
-apt-get install neofetch
-echo "clear" >> .profile
-echo "neofetch" | lolcat  >> .profile
-
-# finishing
-chown -R www-data:www-data /home/vps/public_html
-service cron restart
-service nginx start
+# restart service
 service ssh restart
+service openvpn restart
 service dropbear restart
-service fail2ban restart
-service stunnel4 restart
-service squid restart
+service nginx restart
+service php7.0-fpm restart
 service webmin restart
-rm -rf ~/.bash_history && history -c
-echo "unset HISTFILE" >> /etc/profile
+service squid restart
+service fail2ban restart
+cd
+red='\e[1;31m'
+               green='\e[0;32m'
+               NC='\e[0m'
 
-history -c
-# history
+               echo -e "\e[38;5;82m KAMI TENGAH BUAT KIRAAN VPS ANDA..."
+			   sleep 1
+
+			   echo -e "\e[38;5;11m DALAM KIRAAN 3...."
+               sleep 2
+                          echo -e "\e[38;5;13m 2"
+		sleep 2.5	  
+			   echo -e "\e[38;5;226m 1..."
+               sleep 1.5
+               
+			   echo -e "${green}SUDAH BERJAYA...${NC}"
+               sleep 1
+cd
 clear
+## info
 echo ""  | tee -a log-install.txt
-echo "=============================================="  | tee -a log-install.txt | lolcat
-echo "  Autoscript Created By Suhendi "  | tee -a log-install.txt | lolcat
-echo "--------------------------------------------------------------------------------------------"  | tee -a log-install.txt | lolcat
-echo "Facebook    : https://www.facebook.com/hendi.takengon"  | tee -a log-install.txt | lolcat
-echo "Contact Me  : +62 85156022091"  | tee -a log-install.txt | lolcat
-echo "--------------------------------------------------------------------------------------------"  | tee -a log-install.txt | lolcat
-echo "Service     :" | tee -a log-install.txt | lolcat
-echo "--------------------------------------------------------------------------------------------" | tee -a log-install.txt | lolcat
-echo "Nginx       : 81"  | tee -a log-install.txt | lolcat
-echo "Webmin      : http://$MYIP:10000/" | tee -a log-install.txt | lolcat
-echo "badvpn      : badvpn-udpgw port 7200" | tee -a log-install.txt | lolcat
-echo "Squid3      : 80, 8080, 3128"  | tee -a log-install.txt | lolcat
-echo "OpenSSH     : 22"  | tee -a log-install.txt | lolcat
-echo "Dropbear    : 143, 456"  | tee -a log-install.txt | lolcat
-echo "SSL/TLS     : 443"  | tee -a log-install.txt | lolcat
-echo "Timezone    : Asia/Jakarta"  | tee -a log-install.txt | lolcat
-echo "Fail2Ban    : [ON]"   | tee -a log-install.txt | lolcat | lolcat
-echo "Anti [D]dos : [ON]"   | tee -a log-install.txt | lolcat
-echo "IPv6        : [ON]" | tee -a log-install.txt | lolcat
-echo "Tools       :" | tee -a log-install.txt | lolcat
-echo "   axel, bmon, htop, iftop, mtr, rkhunter, nethogs: nethogs $ether" | tee -a log-install.txt | lolcat
-echo "Auto Lock & Delete User Expire tiap jam 00:00" | tee -a log-install.txt | lolcat
-echo "VPS Restart : 00.00/24.00 WIB"   | tee -a log-install.txt | lolcat
-echo ""  | tee -a log-install.txt
-echo "--------------------------------------------------------------------------------------------"  | tee -a log-install.txt | lolcat
-echo "    -------THANK YOU FOR CHOIS US--------"  | tee -a log-install.txt | lolcat
-echo "=============================================="  | tee -a log-install.txt | lolcat
-echo "-   PLEASE REBOOT TAKE EFFECT TERIMA KASIH   -" | lolcat
-echo "ALL MODD DEVELOPED SCRIPT BY Suhendi" | lolcat
-echo "==============================================" | lolcat
+echo "--------------------------- Penjelasan Setup Server ----------------------------" | lolcat
+echo "                         Copyright orangkuatsabahanterkini                " | lolcat
+echo "                        https://t.me/orangkuatsabahanterkini              " | lolcat
+echo "--------------------------------------------------------------------------------" | lolcat
+echo "========================================"  | tee -a log-install.txt | lolcat
+echo "Service Autoscript OrangKuatSabahanTerkini (OrangKuatSabahanTerkini SCRIPT 2017)"  | tee -a log-install.txt | lolcat
+echo "----------------------------------------"  | tee -a log-install.txt | lolcat
+echo ""  | tee -a log-install.txt | lolcat
+echo "nginx : http://$myip:80"   | tee -a log-install.txt | lolcat
+echo "Webmin : http://$myip:10000/"  | tee -a log-install.txt | lolcat
+echo "Squid3 : 8080"  | tee -a log-install.txt | lolcat
+echo "OpenSSH : 22"  | tee -a log-install.txt | lolcat
+echo "Dropbear : 109'110'442"  | tee -a log-install.txt | lolcat
+echo "SSL : 443"  | tee -a log-install.txt | lolcat
+echo "OpenVPN  : IP:81/client.ovpn"  | tee -a log-install.txt | lolcat
+echo "Fail2Ban : [on]"  | tee -a log-install.txt | lolcat
+echo "Timezone : Asia/Kuala_Lumpur"  | tee -a log-install.txt | lolcat
+echo "Menu : type menu to check menu script"  | tee -a log-install.txt | lolcat
+echo ""  | tee -a log-install.txt | lolcat
+echo "----------------------------------------" | lolcat
+echo "LOG INSTALL  --> /root/log-install.txt" | lolcat
+echo "----------------------------------------" | lolcat
+echo "========================================"  | tee -a log-install.txt | lolcat
+echo "      PLEASE REBOOT TO TAKE EFFECT !" | lolcat
+echo "========================================"  | tee -a log-install.txt | lolcat
 cat /dev/null > ~/.bash_history && history -c
