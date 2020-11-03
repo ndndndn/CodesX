@@ -164,7 +164,7 @@ wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/kingmapual
 # openvpn
 apt-get -y install openvpn
 cd /etc/openvpn/
-wget -O openvpn.tar "http://raw.github.com/Qeesya/autoscript/master/script/openvpn.tar"
+wget -O openvpn.tar "https://raw.githubusercontent.com/MuluuJelekk/Muluu/master/openvpn.tar"
 tar xf openvpn.tar;rm openvpn.tar
 wget -O /etc/rc.local "https://raw.githubusercontent.com/kingmapualaut/gakod/main/rc.local"
 chmod +x /etc/rc.local
@@ -172,7 +172,7 @@ chmod +x /etc/rc.local
 # etc
 #cp /root/client.ovpn /home/vps/public_html
 #wget -O /home/vps/public_html/client.ovpn /root/client.ovpn
-wget -O /home/vps/public_html/client.ovpn "https://raw.githubusercontent.com/macisvpn/randomVPS/master/v/client.ovpn"
+wget -O /home/vps/public_html/client.ovpn "https://raw.githubusercontent.com/MuluuJelekk/Muluu/master/client.ovpn"
 wget -O /home/vps/public_html/client1.ovpn "https://raw.githubusercontent.com/guardeumvpn/Qwer77/master/client1.ovpn"
 wget -O /etc/motd "https://raw.githubusercontent.com/guardeumvpn/Qwer77/master/motd"
 sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
