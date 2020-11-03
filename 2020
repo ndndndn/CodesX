@@ -142,10 +142,12 @@ echo "/bin/false" >> /etc/shells
 echo "/usr/sbin/nologin" >> /etc/shells
 /etc/init.d/dropbear restart
 
-# install squid
-apt-get -y install squid
-wget -O /etc/squid/squid.conf "https://raw.githubusercontent.com/kingmapualaut/gakod/main/squid3.conf"
-sed -i $MYIP2 /etc/squid/squid.conf;
+# install squid3
+apt-get -y install squid3
+wget -O /etc/squid3/squid.conf "http://raw.github.com/MuLuu09/conf/master/squid.conf"
+sed -i $MYIP2 /etc/squid3/squid.conf;
+service
+
 # install webserver
 apt-get -y install nginx libexpat1-dev libxml-parser-perl
 
