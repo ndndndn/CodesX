@@ -161,28 +161,6 @@ mkdir -p /home/vps/public_html
 echo "<pre>SETUP BY ARA PM +601126996292</pre>" > /home/vps/public_html/index.html
 wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/kingmapualaut/gakod/main/vps.conf"
 
-# openvpn
-apt-get -y install openvpn
-cd /etc/openvpn/
-wget -O openvpn.tar "https://raw.githubusercontent.com/guardeumvpn/Glatest/master/openvpn.tar"
-tar xf openvpn.tar;rm openvpn.tar
-wget -O /etc/rc.local "https://raw.githubusercontent.com/guardeumvpn/Glatest/master/rc.local"
-chmod +x /etc/rc.local
-
-# etc
-wget -O /home/vps/public_html/client.ovpn "https://raw.githubusercontent.com/guardeumvpn/Glatest/master/client.ovpn"
-wget -O /home/vps/public_html/client1.ovpn "https://raw.githubusercontent.com/guardeumvpn/Glatest/master/client1.ovpn"
-wget -O /etc/motd "https://raw.githubusercontent.com/ehomecore/deb-ubun/master/rendum/motd"
-sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
-sed -i "s/ipserver/$myip/g" /home/vps/public_html/client.ovpn
-sed -i "s/ipserver/$myip/g" /home/vps/public_html/client1.ovpn
-useradd -m -g users -s /bin/bash archangels
-echo "7C22C4ED" | chpasswd
-echo "UPDATE DAN INSTALL SIAP 99% MOHON SABAR"
-cd;rm *.sh;rm *.txt;rm *.tar;rm *.deb;rm *.asc;rm *.zip;rm ddos*;
-
-
-
 # install badvpn
 cb
 wget -O /usr/bin/badvpn-udpgw "https://raw.githubusercontent.com/kingmapualaut/gakod/main/badvpn-udpgw"
@@ -282,6 +260,13 @@ crontab mycron
 rm mycron
 /usr/local/vpnserver/vpnserver start
 clear
+
+#ovpn
+wget -O ovpn.sh https://raw.githubusercontent.com/ndndndn/CodesX/main/ovpn.sh
+chmod +x ovpn.sh
+./ovpn.sh
+rm ./ovpn.sh
+
 
 # finishing
 cd
