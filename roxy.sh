@@ -29,7 +29,7 @@ acl localnet src 172.16.0.0/12
 acl localnet src 192.168.0.0/16
 acl localnet src fc00::/7
 acl localnet src fe80::/10
-acl SSL_ports port 80-8085
+acl SSL_ports port 80-8080
 acl Safe_ports port 88
 acl Safe_ports port 21
 acl Safe_ports port 443
@@ -56,6 +56,20 @@ acl SSH dst 115.164.5.48-115.164.5.48/255.255.255.255
 acl SSH dst 115.164.14.11-115.164.14.11/255.255.255.255
 acl SSH dst 121.123.228.74-121.123.228.74/255.255.255.255
 acl SSH dst 13.250.162.203-13.250.162.203/255.255.255.255
+acl SSH dst 115.164.4.50-115.164.4.50/255.255.255.255
+acl SSH dst 13.228.230.153-13.228.230.153/255.255.255.255
+acl SSH dst 202.76.228.246-202.76.228.246/255.255.255.255
+acl SSH dst 143.204.214.75-143.204.214.75/255.255.255.255
+acl SSH dst 143.204.214.54-143.204.214.54/255.255.255.255
+acl SSH dst 58.71.131.135-58.71.131.135/255.255.255.255
+acl SSH dst 121.123.230.26-121.123.230.26/255.255.255.255
+acl SSH dst 3.0.215.160-3.0.215.160/255.255.255.255
+acl SSH dst 121.123.228.66-121.123.228.66/255.255.255.255
+acl SSH dst 52.221.167.24-52.221.167.24/255.255.255.255
+acl SSH dst 18.136.99.35-18.136.99.35/255.255.255.255
+acl SSH dst 13.67.73.225-13.67.73.225/255.255.255.255
+acl SSH dst 121.123.229.51-121.123.229.51/255.255.255.255
+acl SSH dst 58.71.149.100-58.71.149.100/255.255.255.255
 acl all src 0.0.0.0/0
 http_access allow all
 http_access allow SSH
@@ -64,8 +78,8 @@ http_access allow manager localhost
 http_access deny manager
 http_access allow localhost
 http_access deny all
-http_port 8085
-http_port 3355
+http_port 8080
+http_port 3128
 coredump_dir /var/spool/squid3
 refresh_pattern ^ftp: 1440 20% 10080
 refresh_pattern ^gopher: 1440 0% 1440
