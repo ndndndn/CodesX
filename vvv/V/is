@@ -24,8 +24,6 @@ apt-get -y install squid
 cat > /etc/squid/squid.conf <<-END
 acl localhost src 127.0.0.1/32 ::1
 acl to_localhost dst 127.0.0.0/8 0.0.0.0/32 ::1
-visible_hostname deezer.digi.com.my
-dns_nameservers 8.8.8.8 8.8.4.4
 acl SSL_ports port 443
 acl Safe_ports port 80
 acl Safe_ports port 21
@@ -37,9 +35,7 @@ acl Safe_ports port 280
 acl Safe_ports port 488
 acl Safe_ports port 591
 acl Safe_ports port 777
-acl CONNECT method CONNECT
-acl HEAD method HEAD
-acl DOMAIN dstdomain myinternet.digi.com.my facebook.com p1.com.my mini5-5.opera-mini.net weixin.qq.com v1.hotlink.com.my torrent.bitchdeezer.info era.fm p85.bitchdeezer.info p1.bitchdeezer.info p2.bitchdeezer.info p3.bitchdeezer.info p4.bitchdeezer.info p26.bitchdeezer.info n1.bitchdeezer.info n2.bitchdeezer.info n3.bitchdeezer.info 
+acl CONNECT method CONNECT 
 acl SSH dst xxxxxxxxx-xxxxxxxxx/255.255.255.255
 acl SSH dst 52.74.223.216-52.74.223.216/255.255.255.255
 acl SSH dst 121.123.229.172-121.123.229.172/255.255.255.255
@@ -70,6 +66,38 @@ http_port 8080
 http_port 8000
 http_port 80
 http_port 3128
+## header list ( DENY all -> ALLOW only listed )
+via off
+forwarded_for off
+request_header_access Allow allow all 
+request_header_access Authorization allow all 
+request_header_access WWW-Authenticate allow all 
+request_header_access Proxy-Authorization allow all 
+request_header_access Proxy-Authenticate allow all 
+request_header_access Cache-Control allow all 
+request_header_access Content-Encoding allow all 
+request_header_access Content-Length allow all 
+request_header_access Content-Type allow all 
+request_header_access Date allow all 
+request_header_access Expires allow all 
+request_header_access Host allow all 
+request_header_access If-Modified-Since allow all 
+request_header_access Last-Modified allow all 
+request_header_access Location allow all 
+request_header_access Pragma allow all 
+request_header_access Accept allow all 
+request_header_access Accept-Charset allow all 
+request_header_access Accept-Encoding allow all 
+request_header_access Accept-Language allow all 
+request_header_access Content-Language allow all 
+request_header_access Mime-Version allow all 
+request_header_access Retry-After allow all 
+request_header_access Title allow all 
+request_header_access Connection allow all 
+request_header_access Proxy-Connection allow all 
+request_header_access User-Agent allow all 
+request_header_access Cookie allow all 
+request_header_access All deny all
 coredump_dir /var/spool/squid3
 refresh_pattern ^ftp: 1440 20% 10080
 refresh_pattern ^gopher: 1440 0% 1440
