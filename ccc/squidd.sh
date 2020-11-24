@@ -22,8 +22,6 @@ cd
 # install squid3
 apt-get -y install squid
 cat > /etc/squid/squid.conf <<-END
-acl localhost src 127.0.0.1/32 ::1
-acl to_localhost dst 127.0.0.0/8 0.0.0.0/32 ::1
 acl localnet src 1.0.0.0/8  # my local network
 acl all src
 acl SSL_ports port 443
