@@ -54,6 +54,8 @@ acl videoprime dstdomain .videoprime.
 acl ip4 dstdomain 127.0.0.2
 acl oi dstdomain 200.222.108.241
 
+acl all src 0.0.0.0/0
+http_access allow all
 http_access allow ip
 http_access allow payload
 http_access allow local
